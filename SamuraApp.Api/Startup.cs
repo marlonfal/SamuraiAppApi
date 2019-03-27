@@ -31,7 +31,12 @@ namespace SamuraApp.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<SamuraiContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+                options => 
+                    options
+                    .UseSqlServer(Configuration.GetConnectionString("defaultConnection"))
+                    .UseLoggerFactory(SamuraiContext.GetLoggerFactory())
+                );
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<SamuraiContext>()
